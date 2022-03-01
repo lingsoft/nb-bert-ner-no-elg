@@ -7,8 +7,8 @@ from transformers import pipeline
 # NER pipeline that outputs token and NER, score
 model_path = 'local_nb_bert_ner'
 if not os.path.isdir(model_path):
-    raise 'Local trained model is not available, use pre-trained model, training \
-        should be implemented for better results'
+    raise Exception('Local trained model is not available, use pre-trained model, training \
+        should be implemented for better results')
 
 ner = pipeline(
     task='ner',
