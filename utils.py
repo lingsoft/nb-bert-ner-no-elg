@@ -5,9 +5,11 @@ from elg.model.base import Annotation
 from transformers import pipeline
 
 # NER pipeline that outputs token and NER, score
-model_path = 'local_kb_bert_ner/' if os.path.isdir(
-    'local_kb_bert_ner') else 'KB/bert-base-swedish-cased-ner'
-print('model path', model_path)
+model_path = 'local_nb_bert_ner'
+if not os.path.isdir(model_path):
+    raise 'Local trained model is not available, use pre-trained model, training \
+        should be implemented for better results'
+
 ner = pipeline(
     task='ner',
     model=model_path,
