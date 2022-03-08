@@ -5,10 +5,8 @@ from elg.model.base import Annotation
 from transformers import pipeline
 
 # NER pipeline that outputs token and NER, score
-model_path = 'local_nb_bert_ner'
-if not os.path.isdir(model_path):
-    raise Exception('Local trained model is not available, use pre-trained model, training \
-        should be implemented for better results')
+model_path = 'local_nb_bert_ner/' if os.path.isdir(
+    'local_kb_bert_ner') else 'NbAiLab/nb-bert-base-ner'
 
 ner = pipeline(
     task='ner',

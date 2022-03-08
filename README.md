@@ -17,7 +17,14 @@ source nb-ner-elg-venv/bin/activate
 python3 -m pip install -r requirements.txt
 ```
 
-The pre-trained model `nb-bert-base` is available in Hugginface, and [here](https://colab.research.google.com/gist/peregilk/6f5efea432e88199f5d68a150cef237f/-nbailab-finetuning-and-evaluating-a-bert-model-for-ner-and-pos.ipynb) is the Google Colab to fine-tune it. The model once trained can be also used locally by saving the NER pipeline to the local disk. In this local development setup, we assume that the directory for model `local_nb_bert_ner` is available.
+The fine-tuned model can be directly used, the [latest](https://huggingface.co/NbAiLab/nb-bert-base-ner)(17.11.2021) model is fine-tuned for NER task using the [NorNE](https://huggingface.co/datasets/NbAiLab/norne) dataset. The model is published under cc-by-4.0 license
+
+To load the fine-tuned model into the local directory `local_nb_bert_ner`
+```
+python3 load_model.py
+```
+
+Optionally, one may want to fine-tune a pre-trained model. For that, the pre-trained model `nb-bert-base` is available in Huggingface, and [here](https://colab.research.google.com/gist/peregilk/6f5efea432e88199f5d68a150cef237f/-nbailab-finetuning-and-evaluating-a-bert-model-for-ner-and-pos.ipynb) is the Google Colab to fine-tune it. The model once trained can be also used locally by saving the model to the local disk, script to save the trained model is available at the final cell in the same colab. 
 
 Run the development mode flask app
 ```
@@ -105,97 +112,91 @@ curl -d '{"type":"text","content":"Svein Arne Brygfjeld, Freddy Wetjen, Javier d
 
 ```json
 {
-    "response": {
-        "type": "annotations",
-        "annotations": {
-            "PER": [
-                {
-                    "start": 0,
-                    "end": 20,
-                    "features": {
-                        "word": "Svein Arne Brygfjeld",
-                        "score": "1.000"
-                    }
-                },
-                {
-                    "start": 22,
-                    "end": 35,
-                    "features": {
-                        "word": "Freddy Wetjen",
-                        "score": "1.000"
-                    }
-                },
-                {
-                    "start": 37,
-                    "end": 54,
-                    "features": {
-                        "word": "Javier de la Rosa",
-                        "score": "0.999"
-                    }
-                },
-                {
-                    "start": 58,
-                    "end": 74,
-                    "features": {
-                        "word": "Per E Kummervold",
-                        "score": "1.000"
-                    }
-                }
-            ],
-            "ORG": [
-                {
-                    "start": 91,
-                    "end": 96,
-                    "features": {
-                        "word": "AILAB",
-                        "score": "0.824"
-                    }
-                },
-                {
-                    "start": 163,
-                    "end": 165,
-                    "features": {
-                        "word": "Mo",
-                        "score": "0.424"
-                    }
-                }
-            ],
-            "LOC": [
-                {
-                    "start": 103,
-                    "end": 122,
-                    "features": {
-                        "word": "Nasjonalbiblioteket",
-                        "score": "0.992"
-                    }
-                },
-                {
-                    "start": 124,
-                    "end": 143,
-                    "features": {
-                        "word": "Nasjonalbiblioteket",
-                        "score": "0.991"
-                    }
-                },
-                {
-                    "start": 168,
-                    "end": 172,
-                    "features": {
-                        "word": "Rana",
-                        "score": "0.712"
-                    }
-                },
-                {
-                    "start": 178,
-                    "end": 182,
-                    "features": {
-                        "word": "Oslo",
-                        "score": "0.999"
-                    }
-                }
-            ]
+  "response": {
+    "type": "annotations",
+    "annotations": {
+      "PER": [
+        {
+          "start": 0,
+          "end": 20,
+          "features": {
+            "word": "Svein Arne Brygfjeld",
+            "score": "1.000"
+          }
+        },
+        {
+          "start": 22,
+          "end": 35,
+          "features": {
+            "word": "Freddy Wetjen",
+            "score": "1.000"
+          }
+        },
+        {
+          "start": 37,
+          "end": 54,
+          "features": {
+            "word": "Javier de la Rosa",
+            "score": "0.994"
+          }
+        },
+        {
+          "start": 58,
+          "end": 74,
+          "features": {
+            "word": "Per E Kummervold",
+            "score": "1.000"
+          }
         }
+      ],
+      "DRV": [
+        {
+          "start": 91,
+          "end": 92,
+          "features": {
+            "word": "A",
+            "score": "0.828"
+          }
+        }
+      ],
+      "ORG": [
+        {
+          "start": 103,
+          "end": 122,
+          "features": {
+            "word": "Nasjonalbiblioteket",
+            "score": "0.997"
+          }
+        },
+        {
+          "start": 124,
+          "end": 143,
+          "features": {
+            "word": "Nasjonalbiblioteket",
+            "score": "0.994"
+          }
+        }
+      ],
+      "GPE_LOC": [
+        {
+          "start": 163,
+          "end": 172,
+          "features": {
+            "word": "Mo i Rana",
+            "score": "0.989"
+          }
+        },
+        {
+          "start": 178,
+          "end": 182,
+          "features": {
+            "word": "Oslo",
+            "score": "0.999"
+          }
+        }
+      ]
     }
+  }
 }
 ```
 
