@@ -19,7 +19,7 @@ class NBNer(FlaskService):
         except Exception as err:
             internalErrorMessage = StandardMessages.\
                     generate_elg_service_internalerror(
-                        detail={'Internal error': str(err)})
+                        params=[str(err)])
             return Failure(errors=[internalErrorMessage])
         return AnnotationsResponse(annotations=res)
 
