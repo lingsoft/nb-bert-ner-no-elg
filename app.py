@@ -11,9 +11,10 @@ class NBNer(FlaskService):
         """Single text handler that catches too large request and
         internal exception while parsing text"""
         if utils.is_exceed_limit(text):
-            tooLargeMessage = StandardMessages.\
-                    genegenerate_elg_request_too_larger()
-            return Failure(errors=[tooLargeMessage])
+            err_msg = "Submitted text has exceeded 512 tokens limit"
+            tooLargeTextMessage = StandardMessages.\
+                generate_elg_request_too_large(params=[err_msg])
+            return Failure(errors=[tooLargeTextMessage])
         try:
             res = utils.ner_func(text)
         except Exception as err:
