@@ -17,14 +17,24 @@ source nb-ner-elg-venv/bin/activate
 python3 -m pip install -r requirements.txt
 ```
 
-The fine-tuned model can be directly used, the [latest](https://huggingface.co/NbAiLab/nb-bert-base-ner)(17.11.2021) model is fine-tuned for NER task using the [NorNE](https://huggingface.co/datasets/NbAiLab/norne) dataset. The model is published under cc-by-4.0 license
+For direct use, the [latest](https://huggingface.co/NbAiLab/nb-bert-base-ner)(17.11.2021) model is a fine-tuned version for NER task using the [NorNE](https://huggingface.co/datasets/NbAiLab/norne) dataset. The model is published under cc-by-4.0 license. To load the fine-tuned model into the local directory `local_nb_bert_ner`
 
-To load the fine-tuned model into the local directory `local_nb_bert_ner`
 ```
 python3 load_model.py
 ```
 
-Optionally, one may want to fine-tune a pre-trained model. For that, the pre-trained model `nb-bert-base` is available in Huggingface, and [here](https://colab.research.google.com/gist/peregilk/6f5efea432e88199f5d68a150cef237f/-nbailab-finetuning-and-evaluating-a-bert-model-for-ner-and-pos.ipynb) is the Google Colab to fine-tune it. The model once trained can be also used locally by saving the model to the local disk, script to save the trained model is available at the final cell in the same colab. 
+Optionally, one may want to fine-tune a pre-trained model. For that, the pre-trained model `nb-bert-base` is available in Huggingface, and [here](https://colab.research.google.com/gist/peregilk/6f5efea432e88199f5d68a150cef237f/-nbailab-finetuning-and-evaluating-a-bert-model-for-ner-and-pos.ipynb) is the Google Colab to fine-tune it. The model once trained can be also used locally by saving the model to the local disk, script to save the trained model is available at the final cell in the same colab. Below we provide the fine-tuning configuraiton parameters that we used.
+
+### Fine Tune Parameters
+| Params | values |
+|-|-| 
+| base model | NbAiLab/nb-bert-base |
+| train data | bokmaai |
+| learning rate | 3e-5 |
+| train epochs | 4 |
+| warm up steps | 750 | 
+
+
 
 Run the development mode flask app
 ```
@@ -36,7 +46,6 @@ FLASK_ENV=development flask run --host 0.0.0.0 --port 8000
 ```
 docker build -t nb-ner-elg .
 ```
-
 
 Or pull directly ready-made image `docker pull lingsoft/nb-ner:tagname`.
 
@@ -200,3 +209,18 @@ curl -d '{"type":"text","content":"Svein Arne Brygfjeld, Freddy Wetjen, Javier d
 }
 ```
 
+## Comparision of fine-tuned version from `NbAiLab/nb-bert-base-ner` and our own fine-tuned version based on `NbAiLab/nb-bert-base`
+| NER bert model               | configurations                                         | data for testing   | Eval F1 score |
+|------------------------------|--------------------------------------------------------|--------------------|---------------|
+|  fine-tuned based on nb-bert |  see [Table](#fine-tune-parameters)                                                       |bokmål train        | **0.99847**  |
+|                              |                                                         | bokmål test        | 0.91117      |
+|                              |                                                        | bokmål validation  | **0.93700**   |
+|                              |                                                        | Nynorsk train      | 0.90097       |
+|                              |                                                        | Nynorsk test       | **0.87628**   |
+|                              |                                                        | Nynorsk validation | **0.91458**   |
+|  NbAiLab/nb-bert-base-ner    |  fine-tuned already                                    | bokmål train       | 0.99386       |
+|                              |                                                        | bokmål test        | **0.91222**   |
+|                              |                                                        | bokmål validation  | 0.93247       |
+|                              |                                                        | Nynorsk train      | **0.90335**  |
+|                              |                                                        | Nynorsk test       | 0.87568       |
+|                              |                                                        | Nynorsk validation | 0.90251       |
