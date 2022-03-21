@@ -2,7 +2,7 @@
 
 This git repository contains [ELG compatible](https://european-language-grid.readthedocs.io/en/stable/all/A3_API/LTInternalAPI.html) Flask based REST API for the BERT base fine-tuned for Norwegian NER
 
-[Norwegian Transformer Model](https://github.com/NBAiLab/notram) contains information about the available open-source corpus and pre-trained models that can be fine-tuned for NLP tasks. This API was developed based on the fine-tuned version of `nb-bert-base` on [NbAilab/norne](https://github.com/ltgoslo/norne) dataset, Bokmaal data part. The data can be loaded from HuggingFace library and is published under `CC0` License.
+[Norwegian Transformer Model](https://github.com/NBAiLab/notram) contains information about the available open-source corpus and pre-trained models that can be fine-tuned for NLP tasks. This API was developed based on the fine-tuned version of `nb-bert-base` on [NbAilab/norne](https://github.com/ltgoslo/norne) dataset. The data can be loaded from HuggingFace library and is published under `CC0` License.
 Original author: National Library of Norway, published under `Apache-2.0` License.
 
 
