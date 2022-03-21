@@ -6,7 +6,7 @@ from transformers import pipeline
 
 # NER pipeline that outputs token and NER, score
 model_path = 'local_nb_bert_ner/' if os.path.isdir(
-    'local_kb_bert_ner') else 'NbAiLab/nb-bert-base-ner'
+    'local_nb_bert_ner') else 'NbAiLab/nb-bert-base-ner'
 
 ner = pipeline(
     task='ner',
