@@ -47,7 +47,7 @@ FLASK_ENV=development flask run --host 0.0.0.0 --port 8000
 docker build -t nb-ner-elg .
 ```
 
-Or pull directly ready-made image `docker pull lingsoft/nb-ner:tagname`.
+Or pull directly ready-made image `docker pull lingsoft/nb-bert-ner-no/:tagname`.
 
 ## Deploying the service
 
